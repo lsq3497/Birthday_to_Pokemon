@@ -10,12 +10,20 @@ function getDayOfYear(year, month, day) {
 
 /**
  * 生日日期 → 宝可梦全国图鉴编号 1-1025
- * 映射规则：一年中的第 N 天 对应 编号 ((N-1) % 1025) + 1
+ * 映射规则（覆盖 1-1025 全范围）：
+ * 1. 先计算一年中的第 N 天（1-366）；
+ * 2. 结合年份生成一个更大的「生日序号」；
+ * 3. 再按 1025 取模映射到 1-1025。
+ *
+ * 这样不同年份的同一天也可能映射到不同编号，整体上可以覆盖 1-1025 所有编号。
  */
 function birthdayToPokemonId(birthday) {
   const [year, month, day] = birthday.split('-').map(Number);
-  const dayOfYear = getDayOfYear(year, month, day);
-  return ((dayOfYear - 1) % 1025) + 1;
+  const dayOfYear = getDayOfYear(year, month, day); // 1-366
+  // 生日序号：把年份和当年的天数组合起来，形成一个随着时间单调增加的整数
+  const birthdaySerial = year * 366 + (dayOfYear - 1);
+  // 映射到 1-1025：保证编号始终在 1-1025 之间，并尽可能均匀分布
+  return (birthdaySerial % 1025) + 1;
 }
 
 /**
