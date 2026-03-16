@@ -1,0 +1,55 @@
+<view class="container">
+  <view class="header">
+    <text class="title">你的本命宝可梦是哪只？</text>
+    <text class="subtitle">选择生日日期，查看全国图鉴 1–1025 中的本命宝可梦（Birthday to Pokemon）</text>
+  </view>
+
+  <view class="form">
+    <picker
+      mode="date"
+      value="{{birthday}}"
+      start="1900-01-01"
+      end="2030-12-31"
+      bindchange="onBirthdayChange"
+    >
+      <view class="picker-wrap">
+        <text class="picker-label">生日</text>
+        <text class="picker-value">{{birthday || '请选择日期'}}</text>
+      </view>
+    </picker>
+    <picker
+      mode="selector"
+      range="{{imageSourceList}}"
+      range-key="name"
+      value="{{imageSourceIndex}}"
+      bindchange="onSourceChange"
+    >
+      <view class="picker-wrap">
+        <text class="picker-label">图片源</text>
+        <text class="picker-value">{{imageSourceList[imageSourceIndex].name}}</text>
+      </view>
+    </picker>
+    <button class="btn" bindtap="onConfirm">查看我的本命宝可梦</button>
+  </view>
+
+  <view class="result" wx:if="{{showResult}}">
+    <view class="card">
+      <view class="img-wrap">
+        <image
+          class="pokemon-img"
+          src="{{pokemonImageUrl}}"
+          mode="aspectFit"
+          lazy-load
+          binderror="onImageError"
+        />
+        <button class="btn-refresh" bindtap="onRefreshImage">刷新图片</button>
+      </view>
+      <view class="info">
+        <text class="dex-no">No.{{dexNoFormatted}}</text>
+        <text class="name name-zh">{{pokemonName}}</text>
+        <text class="name-row" wx:if="{{pokemonNameJp}}"><text class="name-label">日文</text> {{pokemonNameJp}}</text>
+        <text class="name-row" wx:if="{{pokemonNameEn}}"><text class="name-label">English</text> {{pokemonNameEn}}</text>
+      </view>
+    </view>
+  </view>
+</view>

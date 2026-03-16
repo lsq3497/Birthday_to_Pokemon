@@ -1,0 +1,24 @@
+{
+  "miniprogramRoot": "miniprogram/",
+  "projectname": "Birthday_to_Pokemon",
+  "description": "本命宝可梦（Birthday to Pokemon）",
+  "appid": "wxeb5ed2ea11baad4f",
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "postcss": true,
+    "minified": true
+  },
+  "compileType": "miniprogram",
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "本命宝可梦首页",
+          "pathName": "pages/index/index",
+          "query": ""
+        }
+      ]
+    }
+  }
+}
